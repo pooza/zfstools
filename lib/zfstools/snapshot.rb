@@ -68,8 +68,8 @@ module Zfs
           EOF
           cmd = %Q[mysql -e "#{sql_query}"]
         when 'postgresql'
-          sql_pre_query = "SELECT PG_START_BACKUP('zfs-auto-snapshot');"
-          sql_post_query = "SELECT PG_STOP_BACKUP();"
+          sql_pre_query = "SELECT PG_BACKUP_START('zfs-auto-snapshot');"
+          sql_post_query = "SELECT PG_BACKUP_STOP();"
           zfs_cmd = cmd
           cmd = %Q[(psql -c "#{sql_pre_query}" postgres ; #{zfs_cmd} ) ; psql -c "#{sql_post_query}" postgres]
         end
